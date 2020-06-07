@@ -1,0 +1,49 @@
+ <!--Page Header-->
+    <div class="container w3-border-bottom w3-border-gray">
+        <div class="row">
+            <div class="col-md-7">
+                <p><b class="w3-xxlarge w3-padding-small w3-text-white">{{pageheader.title}}</b>
+                    <b class="w3-xlarge" style="color:palegoldenrod;">{{pageheader.strapline}} </b>
+                </p>       
+            </div>
+        </div>
+    </div> 
+    <br>
+
+
+
+<div class="row">
+    <div class="col-md-8 col-sm-12">
+        <div class="w3-card-4 w3-blue">
+             {{#each locations}}
+                <!--places-->
+                <div class="w3-container w3-border-bottom w3-border-gray w3-padding-large">
+                    <a href="/location" class="w3-xlarge "><b class="w3-text-amber" style="padding-right:5px;">{{this.name}}</b>
+                    
+                    {{#each this.rating}}
+                       <i class="fas fa-star"></i>
+                    {{/each}}
+                    
+                    <span class="w3-tag w3-red w3-large w3-round">{{this.distance}}</span>
+                    </a>
+                    <p><i>{{this.address}}</i></p>
+                    <p>
+                        {{#each this.facilities}}
+                             <span class="w3-tag w3-yellow w3-text-gray"><b>{{this}}</b></span>
+                        {{/each}}
+                    </p>    
+                </div>
+            {{/each}}
+    </div><!--Closed card tag-->
+</div><!--Closed left side bar-->
+    
+
+
+
+    <!--Right Side Bar-->
+    <div class="col-md-4 col-sm-12">
+        <p class="w3-xlarge w3-text-white w3-padding-small"> <b>Looking for wifi and a seat? Loc8r helps you find places to work
+        when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help
+        you find the place you're looking for. </b></p>
+    </div>
+</div>
