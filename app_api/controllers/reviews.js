@@ -10,7 +10,7 @@ module.exports.reviewsUpdateOne = function(req,res,next){
     res.status(201).json({"msg":"Success"})
 }
 
-module.exports.updateDeleteOne = function(req,res,next){
+module.exports.reviewsDeleteOne = function(req,res,next){
     res.status(200).json({"msg":"Success"})
 }
 
