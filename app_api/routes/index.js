@@ -14,10 +14,10 @@ router.put('/locations/lid',ctrlLocations.updateLocation);
 router.delete('/locations/lid',ctrlLocations.delLocation);
 
 /* Routes for reviews api*/
-router.post('/locations/:locationid/reviews', ctrlReviews.reviewsCreate);
-router.get('/locations/:locationid/reviews/:reviewid',ctrlReviews.reviewsReadOne);
-router.put('/locations/:locationid/reviews/:reviewid',ctrlReviews.reviewsUpdateOne);
-router.delete('/locations/:locationid/reviews/:reviewid',ctrlReviews.reviewsDeleteOne);
+router.post('/locations/:lid/reviews', ctrlReviews.reviewsCreate);
+router.get('/locations/:lid/reviews/:rid',ctrlReviews.reviewsReadOne);
+router.put('/locations/:lid/reviews/:rid',ctrlReviews.reviewsUpdateOne);
+router.delete('/locations/:lid/reviews/:rid',ctrlReviews.reviewsDeleteOne);
 
 
 module.exports = router;
