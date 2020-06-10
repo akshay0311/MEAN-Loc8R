@@ -1,11 +1,20 @@
 var mongoose = require('mongoose');
 var Loc = mongoose.model('Location');
 
-
+// enumerating all the location
 module.exports.listLocations = function(req,res,next){
-    res.status(200).json({"msg":"Success"})
+    Loc.find()
+    .exec(function(err,list){
+        if (err){
+            res.status(404).json(err);
+            return;    
+        }
+        res.status(200).json(list)
+    });
 }
 
+
+// adding new location
 module.exports.newLocation = function(req,res,next){
     var newLoc;
     newLoc = {
@@ -44,7 +53,7 @@ module.exports.readLocation = function(req, res) {
         Loc.findById(req.params.lid)
         .exec((err,loc)=>{
             if (!loc){
-                res.status(404).json({"msg":"location not found"});
+                res.status(404).json({"msg":"location id not found"});
                 return;
             }
             if (err){
@@ -64,15 +73,64 @@ module.exports.readLocation = function(req, res) {
 
 
 
+
+// updating location
 module.exports.updateLocation = function(req,res,next){
-    res.status(201).json({"msg":"Success"})
+    if (req.params && req.params.lid) {
+        Loc.findById(req.params.lid)
+        .select('-reviews -rating')
+        .exec((err,loc)=>{
+            if (!loc){
+                res.status(404).json({"msg":"location id not found"});
+                return;
+            }
+            if (err){
+                res.status(404).json({"error":err});
+                return;
+            }
+            else{
+                   // updating name, address , facilities
+                    loc.name = req.body.name;
+                    loc.address = req.body.address;
+                    loc.facilities = req.body.facilities.split(",");
+                    // saving the updated location
+                    loc.save((err,new_loc)=>{
+                        if (err) {
+                            sendJsonResponse(res, 404, err);
+                            }
+                        else{
+                            res.status(200).json(new_loc);
+                        }     
+                    }); 
+                }
+            });
+        }
+    else{
+        res.status(404).json({"msg":"location id is required as params"});
+    }        
 }
 
 
 
 
 
-
+// deleting location
 module.exports.delLocation = function(req,res,next){
-    res.status(200).json({"msg":"Success"})
-}
+        var locationid = req.params.locationid;
+        if(locationid) {
+            Loc
+            .findByIdAndRemove(locationid)
+            .exec(
+                function(err, location) {
+                    if (err) {
+                        sendJsonResponse(res, 404, err);
+                        return;
+                    }
+                    sendJsonResponse(res, 204, null);
+                }
+            );
+            }else{
+                sendJsonResponse(res, 404, {
+                    "message": "No locationid"});
+            }
+        }
